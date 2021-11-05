@@ -1,0 +1,45 @@
+{
+  "Modes": [
+    {
+      "IsEnabled": true,
+      "ShortDelay": 50,
+      "LongDelay": 255,
+      "Steps": [
+        "1 L OOO",
+        "7 S OOO"
+      ]
+    },
+    {
+      "IsEnabled": true,
+      "ShortDelay": 100,
+      "LongDelay": 255,
+      "Steps": [
+        "1 L OOO"
+      ]
+    },
+    {
+      "IsEnabled": true,
+      "ShortDelay": 10,
+      "LongDelay": 50,
+      "Steps": [
+        "1 S O--",
+        "0 L OOO",
+        "1 S -O-",
+        "0 L OOO",
+        "1 S --O",
+        "0 L OOO",
+        "1 S -O-",
+        "0 L OOO"
+      ]
+    },
+    {
+      "IsEnabled": true,
+      "ShortDelay": 50,
+      "LongDelay": 255,
+      "Steps": [
+        "0 L OOO",
+        "7 S OOO"
+      ]
+    }
+  ]
+}
