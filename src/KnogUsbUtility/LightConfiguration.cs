@@ -75,6 +75,11 @@ namespace KnogUsbUtility {
                 throw new ArgumentException("modeData not of correct length", nameof(modeData));
             }
 
+            // data validity sanity check (0xF800, 0xF801)
+            if (modeData[0] != 0 || modeData[1] != 0) {
+                throw new ArgumentException("Invalid data");
+            }
+
             Mode[] modes = Enumerable.Range(0, MaxModeCount)
                 .Select(i => new Mode())
                 .ToArray();

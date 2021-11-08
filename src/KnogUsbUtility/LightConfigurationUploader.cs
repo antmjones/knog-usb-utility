@@ -10,6 +10,7 @@ namespace KnogUsbUtility {
 
         public const int LightModesStartAddress = 0xF800;
         public const int StepDataStartAddress = 0xF840;
+        public const int ProductCodeAddress = 0xFB40;
 
         private const int PageSize = 64;
 
@@ -51,7 +52,7 @@ namespace KnogUsbUtility {
             "{ " + string.Join(", ", data.Select(d => $"0x{d:x2}")) + " }";
 
         public void DumpMemory(TextWriter writer) {
-            for (int i = 0xF800; i <= 0xFB83; i++) {
+            for (int i = 0xF800; i <= 0xFB7F; i++) {
                 byte b = ReadByte(i);
                 writer.WriteLine($"0x{i:X4}: 0x{b:X2} ({b})");
             }
@@ -143,13 +144,22 @@ namespace KnogUsbUtility {
             }
 
             if (response.Data.Length < 2 || response.Data[1] != 0x40) {
-                Console.Error.WriteLine("Invalid response: " + ToHexString(response.Data));
+                // see https://www.silabs.com/documents/public/application-notes/an945-efm8-factory-bootloader-user-guide.pdf
+                // section 7.2.
+                throw new Exception("Did not receive an ACK for previous command: " + ToHexString(response.Data));
             }
         }
 
         public LightConfiguration Download() {
+            byte productCode = ReadByte(ProductCodeAddress);
+
+            if (productCode != 8) {
+                throw new NotImplementedException("Support for lights other than Cobber Mid Rear not tested.");
+            }
+
             byte[] modeData = Read(LightModesStartAddress, LightConfiguration.ModeDataSize);
             byte[] stepData = Read(StepDataStartAddress, LightConfiguration.StepConfigurationMaxSize);
+
             return LightConfiguration.Decode(modeData, stepData);
         }
 
