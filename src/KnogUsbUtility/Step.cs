@@ -20,7 +20,7 @@ namespace KnogUsbUtility {
         public int Brightness {
             get => brightness;
             set {
-                if (value < MinBrightness || value > MaxBrightness) {
+                if (value is < MinBrightness or > MaxBrightness) {
                     throw new ArgumentOutOfRangeException(nameof(value));
                 }
 
