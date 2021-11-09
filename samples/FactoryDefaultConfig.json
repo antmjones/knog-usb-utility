@@ -1,0 +1,128 @@
+{
+  "Modes": [
+    {
+      "Name": "High",
+      "IsEnabled": true,
+      "ShortDelay": 50,
+      "LongDelay": 200,
+      "Steps": [
+        "3 S OOO"
+      ]
+    },
+    {
+      "Name": "Low",
+      "IsEnabled": true,
+      "ShortDelay": 100,
+      "LongDelay": 255,
+      "Steps": [
+        "1 L OOO"
+      ]
+    },
+    {
+      "Name": "Pulse",
+      "IsEnabled": true,
+      "ShortDelay": 37,
+      "LongDelay": 255,
+      "Steps": [
+        "1 L OOO",
+        "7 S OOO"
+      ]
+    },
+    {
+      "Name": "Day Flash",
+      "IsEnabled": true,
+      "ShortDelay": 37,
+      "LongDelay": 255,
+      "Steps": [
+        "0 L OOO",
+        "0 L OOO",
+        "7 S OOO",
+        "7 S OOO"
+      ]
+    },
+    {
+      "Name": "Roll Flash",
+      "IsEnabled": true,
+      "ShortDelay": 5,
+      "LongDelay": 40,
+      "Steps": [
+        "0 S OOO",
+        "1 S O--",
+        "1 L O--",
+        "3 S O--",
+        "3 L O--",
+        "5 S O--",
+        "1 S -O-",
+        "1 L -O-",
+        "3 S OO-",
+        "3 L OO-",
+        "5 S -O-",
+        "1 S O-O",
+        "5 L -O-",
+        "3 S -OO",
+        "0 S O--",
+        "3 L -OO",
+        "1 S -O-",
+        "5 S --O",
+        "5 L --O",
+        "0 S -O-",
+        "3 S --O",
+        "3 L --O",
+        "1 S --O",
+        "1 L --O",
+        "0 L OOO"
+      ]
+    },
+    {
+      "Name": "ms pulse",
+      "IsEnabled": true,
+      "ShortDelay": 30,
+      "LongDelay": 90,
+      "Steps": [
+        "4 S -O-",
+        "0 S O--",
+        "1 S O-O",
+        "2 L O-O",
+        "3 L O-O",
+        "4 L O-O",
+        "4 S O-O",
+        "3 L O-O",
+        "2 L O-O",
+        "1 S O-O",
+        "0 L O-O"
+      ]
+    },
+    {
+      "Name": "midside flash",
+      "IsEnabled": true,
+      "ShortDelay": 20,
+      "LongDelay": 150,
+      "Steps": [
+        "0 L OOO",
+        "5 L -O-",
+        "0 L OOO",
+        "5 L O-O"
+      ]
+    },
+    {
+      "Name": "eco flash",
+      "IsEnabled": true,
+      "ShortDelay": 30,
+      "LongDelay": 255,
+      "Steps": [
+        "1 S O--",
+        "0 L O--",
+        "0 L O--",
+        "1 S -O-",
+        "0 L -O-",
+        "0 L -O-",
+        "1 S --O",
+        "0 L --O",
+        "0 L --O",
+        "1 S -O-",
+        "0 L -O-",
+        "0 L -O-"
+      ]
+    }
+  ]
+}
