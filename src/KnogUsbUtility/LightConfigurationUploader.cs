@@ -21,6 +21,8 @@ public class LightConfigurationUploader : IDisposable {
         RNVM = 0x38, // can't find any reference to this in silabs documentation...
     }
 
+    private const byte CobberMidRearProductCode = 0x08;
+
     private readonly IHidDevice hidDevice;
     private readonly bool autoCloseHidDevice;
 
@@ -155,7 +157,7 @@ public class LightConfigurationUploader : IDisposable {
     public LightConfiguration Download() {
         byte productCode = ReadByte(ProductCodeAddress);
 
-        if (productCode != 8) {
+        if (productCode != CobberMidRearProductCode) {
             throw new NotImplementedException("Support for lights other than Cobber Mid Rear not tested.");
         }
 
