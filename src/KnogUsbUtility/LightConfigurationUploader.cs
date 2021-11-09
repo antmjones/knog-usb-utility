@@ -63,9 +63,9 @@ public class LightConfigurationUploader : IDisposable {
         WriteFrame(
             Command.RNVM,
             new byte[] {
-                    (byte)((addr >> 8) & 0xFF),
-                    (byte)(addr & 0xFF),
-                    0x01
+                (byte)((addr >> 8) & 0xFF),
+                (byte)(addr & 0xFF),
+                0x01
             });
 
         HidDeviceData? readResult = hidDevice.Read();
