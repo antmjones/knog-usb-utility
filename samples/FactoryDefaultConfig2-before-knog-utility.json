@@ -1,0 +1,127 @@
+{
+  "Modes": [
+    {
+      "IsEnabled": true,
+      "ShortDelay": 150,
+      "LongDelay": 255,
+      "Steps": [
+        "3 L OOO",
+        "3 L OOO"
+      ]
+    },
+    {
+      "IsEnabled": true,
+      "ShortDelay": 100,
+      "LongDelay": 255,
+      "Steps": [
+        "1 L OOO"
+      ]
+    },
+    {
+      "IsEnabled": true,
+      "ShortDelay": 37,
+      "LongDelay": 255,
+      "Steps": [
+        "1 L OOO",
+        "7 S OOO"
+      ]
+    },
+    {
+      "IsEnabled": true,
+      "ShortDelay": 37,
+      "LongDelay": 255,
+      "Steps": [
+        "0 L OOO",
+        "0 L OOO",
+        "7 S OOO",
+        "7 S O--"
+      ]
+    },
+    {
+      "IsEnabled": true,
+      "ShortDelay": 5,
+      "LongDelay": 40,
+      "Steps": [
+        "0 S OOO",
+        "1 S O--",
+        "0 L ---",
+        "3 S O--",
+        "0 L ---",
+        "5 S O--",
+        "1 L -O-",
+        "1 S -O-",
+        "3 S OO-",
+        "0 L ---",
+        "1 S O-O",
+        "5 L -O-",
+        "0 S O--",
+        "3 L -OO",
+        "1 S -O-",
+        "5 L --O",
+        "0 S ---",
+        "0 S -O-",
+        "3 S --O",
+        "0 L ---",
+        "1 S --O",
+        "0 L ---",
+        "0 L OOO",
+        "0 L OOO",
+        "0 L OOO",
+        "0 L OOO",
+        "0 L OOO"
+      ]
+    },
+    {
+      "IsEnabled": true,
+      "ShortDelay": 30,
+      "LongDelay": 90,
+      "Steps": [
+        "4 S -O-",
+        "0 S O--",
+        "1 S O-O",
+        "2 S O-O",
+        "2 S O-O",
+        "3 L O-O",
+        "4 L O-O",
+        "4 S O-O",
+        "3 L O-O",
+        "2 S O-O",
+        "2 S O-O",
+        "1 S O-O",
+        "0 L O-O",
+        "0 L O-O",
+        "0 L O-O"
+      ]
+    },
+    {
+      "IsEnabled": true,
+      "ShortDelay": 20,
+      "LongDelay": 150,
+      "Steps": [
+        "0 L OOO",
+        "5 L -O-",
+        "0 L OOO",
+        "5 L O-O"
+      ]
+    },
+    {
+      "IsEnabled": true,
+      "ShortDelay": 30,
+      "LongDelay": 255,
+      "Steps": [
+        "1 S O--",
+        "0 L OOO",
+        "0 L OOO",
+        "1 S -O-",
+        "0 L OOO",
+        "0 L OOO",
+        "1 S --O",
+        "0 L OOO",
+        "0 L OOO",
+        "1 S -O-",
+        "0 L OOO",
+        "0 L OOO"
+      ]
+    }
+  ]
+}

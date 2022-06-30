@@ -1,8 +1,9 @@
 {
   "profiles": {
     "KnogUsbUtility": {
-      "commandName": "Project",
-      "commandLineArgs": ""
+        "commandName": "Project",
+        "commandLineArgs": "--export-to C:\\Users\\anthony.jones\\source\\repos\\knog-usb-utility\\samples\\FactoryDefaultConfig2-before-knog-utility.json"
+        //"commandLineArgs": "--import-from C:\\Users\\anthony.jones\\source\\repos\\knog-usb-utility\\samples\\ExampleCustomConfig.json"
     }
   }
 }
