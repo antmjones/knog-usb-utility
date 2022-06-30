@@ -1,7 +1,7 @@
 {
   "Modes": [
     {
-      "Name": "High",
+      // High
       "IsEnabled": true,
       "ShortDelay": 50,
       "LongDelay": 200,
@@ -10,7 +10,7 @@
       ]
     },
     {
-      "Name": "Low",
+      // Low
       "IsEnabled": true,
       "ShortDelay": 100,
       "LongDelay": 255,
@@ -19,7 +19,7 @@
       ]
     },
     {
-      "Name": "Pulse",
+      // Pulse
       "IsEnabled": true,
       "ShortDelay": 37,
       "LongDelay": 255,
@@ -29,7 +29,7 @@
       ]
     },
     {
-      "Name": "Day Flash",
+      // Day Flash
       "IsEnabled": true,
       "ShortDelay": 37,
       "LongDelay": 255,
@@ -41,7 +41,7 @@
       ]
     },
     {
-      "Name": "Roll Flash",
+      // Roll Flash
       "IsEnabled": true,
       "ShortDelay": 5,
       "LongDelay": 40,
@@ -74,7 +74,7 @@
       ]
     },
     {
-      "Name": "ms pulse",
+      // ms pulse
       "IsEnabled": true,
       "ShortDelay": 30,
       "LongDelay": 90,
@@ -93,7 +93,7 @@
       ]
     },
     {
-      "Name": "midside flash",
+      // midside flash
       "IsEnabled": true,
       "ShortDelay": 20,
       "LongDelay": 150,
@@ -105,7 +105,7 @@
       ]
     },
     {
-      "Name": "eco flash",
+      // eco flash
       "IsEnabled": true,
       "ShortDelay": 30,
       "LongDelay": 255,
