@@ -12,7 +12,7 @@ public class LightConfigurationUploaderTests {
 
     [TestMethod]
     public void TestUpload() {
-        MockHidDevice mockHidDevice = new();
+        using MockHidDevice mockHidDevice = new();
 
         mockHidDevice.ExpectWrite(setupData);
         mockHidDevice.ReturnRead(ackData);
@@ -35,7 +35,7 @@ public class LightConfigurationUploaderTests {
             });
         mockHidDevice.ReturnRead(ackData);
 
-        LightConfigurationUploader? configUploader = new(mockHidDevice, true);
+        using LightConfigurationUploader? configUploader = new(mockHidDevice, true);
 
         configUploader.Upload(
             LightConfiguration.Decode(LightConfigurationTests.ModeData, LightConfigurationTests.StepData));
@@ -43,7 +43,7 @@ public class LightConfigurationUploaderTests {
 
     [TestMethod]
     public void TestLargeUpload() {
-        MockHidDevice mockHidDevice = new();
+        using MockHidDevice mockHidDevice = new();
 
         LightConfiguration lightConfiguration = new() {
             Modes = new Mode[] {
@@ -82,14 +82,14 @@ public class LightConfigurationUploaderTests {
             mockHidDevice.ReturnRead(ackData);
         }
 
-        LightConfigurationUploader? configUploader = new(mockHidDevice, true);
+        using LightConfigurationUploader? configUploader = new(mockHidDevice, true);
 
         configUploader.Upload(lightConfiguration);
     }
 
     [TestMethod]
     public void TestDownload() {
-        MockHidDevice mockHidDevice = new();
+        using MockHidDevice mockHidDevice = new();
 
         void Expect(int addr, byte expected) {
             mockHidDevice.ExpectWrite(new byte[] {
@@ -124,7 +124,7 @@ public class LightConfigurationUploaderTests {
         }
 
 
-        LightConfigurationUploader? configUploader = new(mockHidDevice, true);
+        using LightConfigurationUploader? configUploader = new(mockHidDevice, true);
 
         LightConfiguration? config = configUploader.Download();
 

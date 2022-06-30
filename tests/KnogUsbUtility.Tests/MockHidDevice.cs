@@ -6,6 +6,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace Tests;
 
+// this is purely a mock class, we don't need to worry about having a "correct" API
+#pragma warning disable CA1063 // Implement IDisposable Correctly
+#pragma warning disable CA1065 // Do not raise exceptions in unexpected locations
+#pragma warning disable CA2201 // Do not raise reserved exception types
+
 public class MockHidDevice : IHidDevice {
     private readonly Queue<byte[]> expectedWrites = new();
     private readonly Queue<byte[]> returnedReads = new();
@@ -35,7 +40,10 @@ public class MockHidDevice : IHidDevice {
 
     public string DevicePath => throw new NotImplementedException();
 
-    public bool MonitorDeviceEvents { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+    public bool MonitorDeviceEvents { 
+        get => throw new NotImplementedException(); 
+        set => throw new NotImplementedException(); 
+    }
 
     public event InsertedEventHandler Inserted {
         add => throw new NotSupportedException();
@@ -53,8 +61,17 @@ public class MockHidDevice : IHidDevice {
     public HidReport CreateReport() =>
         throw new NotImplementedException();
 
-    public void Dispose() =>
+    public void Dispose() {
+        if (returnedReads.Count > 0) {
+            throw new Exception("Not all reads returned");
+        }
+
+        if (expectedWrites.Count > 0) {
+            throw new Exception("Not all writes received");
+        }
+
         GC.SuppressFinalize(this);
+    }
 
     public void OpenDevice() =>
         throw new NotImplementedException();
