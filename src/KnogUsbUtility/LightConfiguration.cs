@@ -90,12 +90,17 @@ public class LightConfiguration {
     }
 
     public static LightConfiguration Decode(byte[] modeData, byte[] stepData) {
+        ArgumentNullException.ThrowIfNull(modeData);
+        ArgumentNullException.ThrowIfNull(stepData);
+
         if (modeData.Length != ModeDataSize) {
             throw new ArgumentException("modeData not of correct length", nameof(modeData));
         }
 
         // data validity sanity check (0xF800, 0xF801)
-        if (modeData[0] != 0 || modeData[1] != 0) {
+        // 0xF800 seems to be '1' on a brand new light but set to '0'
+        // by Knog ModeMaker so accept either.
+        if ((modeData[0] != 0 && modeData[0] != 1) || modeData[1] != 0) {
             throw new ArgumentException("Invalid data");
         }
 
