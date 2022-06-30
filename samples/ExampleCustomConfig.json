@@ -2,7 +2,7 @@
   "Modes": [
     {
       "IsEnabled": true,
-      "ShortDelay": 50,
+      "ShortDelay": 20,
       "LongDelay": 255,
       "Steps": [
         "1 L OOO",
@@ -34,7 +34,7 @@
     },
     {
       "IsEnabled": true,
-      "ShortDelay": 50,
+      "ShortDelay": 20,
       "LongDelay": 255,
       "Steps": [
         "0 L OOO",
