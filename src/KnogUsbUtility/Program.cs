@@ -22,7 +22,9 @@ public static class Program {
             }
 
             return 0;
+#pragma warning disable CA1031 // Do not catch general exception types
         } catch (Exception ex) {
+#pragma warning restore CA1031 // Do not catch general exception types
             Console.Error.WriteLine(ex);
             return -1;
         }
@@ -31,14 +33,24 @@ public static class Program {
     private static void DumpMemory(string toFileName) {
         using LightConfigurationUploader uploader = LightConfigurationUploader.Create();
         using TextWriter writer = new StreamWriter(toFileName);
-        uploader.DumpMemory(writer);
+
+        for (int i = LightConfigurationUploader.LightModesStartAddress;
+            i <= LightConfigurationUploader.EndAddressForDump; i++) {
+            byte b = uploader.ReadByte(i);
+            writer.WriteLine($"0x{i:X4}: 0x{b:X2} ({b})");
+        }
 
         Console.Write("Memory dumped to: " + toFileName);
     }
 
     private static void ImportFromJson(string fromFileName) {
         LightConfiguration? config =
-            JsonSerializer.Deserialize<LightConfiguration>(File.ReadAllText(fromFileName));
+            JsonSerializer.Deserialize<LightConfiguration>(
+                File.ReadAllText(fromFileName),
+                new JsonSerializerOptions {
+                    AllowTrailingCommas = true,
+                    ReadCommentHandling = JsonCommentHandling.Skip,
+                });
 
         if (config == null) {
             throw new InvalidDataException("Could not read " + fromFileName);

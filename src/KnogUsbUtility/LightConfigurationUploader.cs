@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using HidLibrary;
 
@@ -12,6 +11,10 @@ public class LightConfigurationUploader : IDisposable {
     public const int LightModesStartAddress = 0xF800;
     public const int StepDataStartAddress = 0xF840;
     public const int ProductCodeAddress = 0xFB40;
+    public const int EndAddressForDump = 0xFB7F;
+
+    private const byte FrameStartByte = 0x24;
+    private const byte ReportNumber = 0;
 
     private const int PageSize = 64;
 
@@ -35,7 +38,7 @@ public class LightConfigurationUploader : IDisposable {
         IHidDevice? device = HidDevices.Enumerate(VendorId, ProductId).FirstOrDefault();
 
         if (device == null) {
-            throw new Exception("Cannot find device");
+            throw new DeviceCommunicationException("Cannot find device");
         }
 
         return device;
@@ -54,14 +57,7 @@ public class LightConfigurationUploader : IDisposable {
     private static string ToHexString(byte[] data) =>
         "{ " + string.Join(", ", data.Select(d => $"0x{d:x2}")) + " }";
 
-    public void DumpMemory(TextWriter writer) {
-        for (int i = 0xF800; i <= 0xFB7F; i++) {
-            byte b = ReadByte(i);
-            writer.WriteLine($"0x{i:X4}: 0x{b:X2} ({b})");
-        }
-    }
-
-    private byte ReadByte(int addr) {
+    public byte ReadByte(int addr) {
         WriteFrame(
             Command.RNVM,
             new byte[] {
@@ -73,28 +69,36 @@ public class LightConfigurationUploader : IDisposable {
         HidDeviceData? readResult = hidDevice.Read();
 
         if (readResult.Status != HidDeviceData.ReadStatus.Success) {
-            throw new Exception("Read failed, status was " + readResult.Status);
+            throw new DeviceCommunicationException("Read failed, status was " + readResult.Status);
         }
 
         return readResult.Data[1];
     }
 
     private void WriteFrame(Command command, byte[] data) {
+        // https://www.silabs.com/documents/public/application-notes/an945-efm8-factory-bootloader-user-guide.pdf
+        // Section 7 "Bootloader Protocol"
         byte[] header = {
-            0x24,
+            FrameStartByte,
             (byte)(data.Length + 1),
             (byte)command,
         };
 
-        byte[] packet = Append(header, data);
+        byte[] frame = Append(header, data);
 
+        // If I understand correctly this should use
+        // hidDevice.Capabilities.OutputReportByteLength
+        // but that makes mocking for unit testing unnecessarily difficult
+        // since HidDeviceAttributes has no public constructor.
         const int maxFrameLength = 64;
 
-        foreach (byte[] frame in packet.Chunk(maxFrameLength)) {
-            bool result = hidDevice.Write(frame.Prepend((byte)0).ToArray());
+        foreach (byte[] chunk in frame.Chunk(maxFrameLength)) {
+            // first byte is the report # and needs to be included with every write
+            bool result = hidDevice.Write(chunk.Prepend(ReportNumber).ToArray());
 
+            // hidlibrary swallows all exceptions and just returns a boolean :(
             if (!result) {
-                throw new Exception("Write failed?");
+                throw new DeviceCommunicationException("Write failed?");
             }
         }
     }
@@ -144,13 +148,14 @@ public class LightConfigurationUploader : IDisposable {
         HidDeviceData response = hidDevice.Read();
 
         if (response.Status != HidDeviceData.ReadStatus.Success) {
-            throw new Exception("Read failed, status was " + response.Status);
+            throw new DeviceCommunicationException("Read failed, status was " + response.Status);
         }
 
         if (response.Data.Length < 2 || response.Data[1] != 0x40) {
             // see https://www.silabs.com/documents/public/application-notes/an945-efm8-factory-bootloader-user-guide.pdf
             // section 7.2.
-            throw new Exception("Did not receive an ACK for previous command: " + ToHexString(response.Data));
+            throw new DeviceCommunicationException(
+                "Did not receive an ACK for previous command: " + ToHexString(response.Data));
         }
     }
 
@@ -168,6 +173,8 @@ public class LightConfigurationUploader : IDisposable {
     }
 
     public void Upload(LightConfiguration configuration) {
+        ArgumentNullException.ThrowIfNull(configuration);
+
         byte[] stepData = configuration.EncodeStepData();
         byte[] modeData = configuration.EncodeModeData();
 

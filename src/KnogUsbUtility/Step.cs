@@ -56,6 +56,8 @@ public class Step {
 
     // E.g. "7 L -O-"
     public static Step FromPattern(string str) {
+        ArgumentNullException.ThrowIfNull(str);
+
         if (str.Length != 7 ||
             str[1] != ' ' ||
             str[3] != ' ') {
@@ -95,7 +97,9 @@ public class Step {
             ChannelToChar(Channel3);
     }
 
+#pragma warning disable CA1812
     private class StepJsonConverter : JsonConverter<Step> {
+#pragma warning restore CA1812
         public override Step? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) =>
             Step.FromPattern(reader.GetString()!);
 
