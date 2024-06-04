@@ -80,6 +80,8 @@ public class Step {
         _ => throw new ArgumentOutOfRangeException(nameof(delay)),
     };
 
+    // 'O' indicates the state for this channel is updated in this step,
+    // '-' indicates the state for this channel is unchanged in this step.
     private static bool ParseChannel(char channel) => channel switch {
         'O' => true,
         '-' => false,

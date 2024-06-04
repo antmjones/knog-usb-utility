@@ -1,6 +1,8 @@
 {
   "Modes": [
     {
+      // always on with short very bright pulses
+      // (shortest battery life)
       "IsEnabled": true,
       "ShortDelay": 20,
       "LongDelay": 255,
@@ -10,6 +12,7 @@
       ]
     },
     {
+      // permanently on "low" - least offensive setting
       "IsEnabled": true,
       "ShortDelay": 100,
       "LongDelay": 255,
@@ -18,6 +21,8 @@
       ]
     },
     {
+      // short fast "dancing" flashes (similar to "eco")
+      // (longest battery life)
       "IsEnabled": true,
       "ShortDelay": 10,
       "LongDelay": 50,
@@ -33,6 +38,7 @@
       ]
     },
     {
+      // short very bright flashes
       "IsEnabled": true,
       "ShortDelay": 20,
       "LongDelay": 255,
