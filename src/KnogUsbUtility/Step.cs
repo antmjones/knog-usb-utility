@@ -98,7 +98,7 @@ public class Step {
     }
 
 #pragma warning disable CA1812
-    private class StepJsonConverter : JsonConverter<Step> {
+    private sealed class StepJsonConverter : JsonConverter<Step> {
 #pragma warning restore CA1812
         public override Step? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options) =>
             Step.FromPattern(reader.GetString()!);

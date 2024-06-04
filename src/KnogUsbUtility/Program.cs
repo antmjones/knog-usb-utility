@@ -6,6 +6,18 @@ using CommandLine;
 namespace KnogUsbUtility;
 
 public static class Program {
+    private static readonly JsonSerializerOptions readJsonOptions =
+        new JsonSerializerOptions {
+            AllowTrailingCommas = true,
+            ReadCommentHandling = JsonCommentHandling.Skip,
+        };
+
+    private static readonly JsonSerializerOptions writeJsonOptions =
+        new JsonSerializerOptions {
+            WriteIndented = true,
+        };
+
+
     public static int Main(string[] args) =>
         Parser.Default
             .ParseArguments<CommandLineOptions>(args)
@@ -47,10 +59,7 @@ public static class Program {
         LightConfiguration? config =
             JsonSerializer.Deserialize<LightConfiguration>(
                 File.ReadAllText(fromFileName),
-                new JsonSerializerOptions {
-                    AllowTrailingCommas = true,
-                    ReadCommentHandling = JsonCommentHandling.Skip,
-                });
+                readJsonOptions);
 
         if (config == null) {
             throw new InvalidDataException("Could not read " + fromFileName);
@@ -66,9 +75,7 @@ public static class Program {
         using LightConfigurationUploader uploader = LightConfigurationUploader.Create();
         LightConfiguration config = uploader.Download();
 
-        string result = JsonSerializer.Serialize(config, new JsonSerializerOptions {
-            WriteIndented = true,
-        });
+        string result = JsonSerializer.Serialize(config, writeJsonOptions);
 
         File.WriteAllText(toFileName, result);
 
